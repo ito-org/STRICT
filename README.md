@@ -4,15 +4,34 @@ STRICT [simply trac infections] is a protocol and concept how to anonymously tra
 Die Idee zu STRICT entstannt beim #WirVsVirus Hackathon und soll bietet eine Lösung zum anonymen Tracking von Infectionen.
 Der Fokus lag dabei auf Datensparsamkeit und einfache Implementierung, damit wollen wir eine möglichst große Verbreitung erreichen. STRICT lässt sich in Smartdevice mit Bluetooth integrieren, in Betriebssysteme oder in Apps. Durch die Standartisierung des Protokols arbeiten all diese Systeme zu sammen und wir erreichen eine möglichst große Verbreitung um ein Fläschendeckendes tracking von Infectionskrankheiten zu gewährleisten.
 
-## How it works
+## Problem Statement
 
-Das Konzept ist in 3 Komponenten eingeteilt welche im folgenden näher erläutert werden.
+We want to do privacy preserving contact tracing and notify users if they have come in contact with potentially infected people. This should happen in a way that is as privacy preserving as possible. We want to have the following properties:
 
-### Buetooth Device
-Für das Tracking kommen bluetoothfähige Geräte zum einsatz welche als Beacon fungieren und eine, sich alle 30 Minuten ändernde ID aussenden und von anderen Geräten empfangen. Mithilfe der Signalstärke und eines Counters lässt sich später die Kontaktdauer und die Entfernung zu einer Infizierten Person ermitteln. Sowohl die temporären IDs als auch die empfangenen IDs werden in einer Datenbank auf dem Endgerät abgelegt. 
+- The users should be alerted if they got in touch with infected parties, ideally only that.
+- The server should not learn anything besides who is infected, ideally not even that.u
 
-### Smartphone oder Computer
-Zur langfristigen Speicherung (aktuell sind 2 Monate angedacht) und zum abgleich mit dem Server wird ein Smartphone oder Computer benötigt. Hier lassen sich die Daten auch von verschiedenen Devices zusammen führen. Zum Abgleich wird eine Datenbank mit infizierten IDs vom Server geladen und mit den eigenen Daten abgeglichen. Sollten sich eine oder mehrere IDs in der Kontaktdatenbank befinden ermittelt das Gerät ein Risikoprofil welches dann bestimmt welche weiteren Maßnahmen getroffen werden. Durch das Risikoprofil wird eine passende Handlungsanweisung ausgegeben und wenn gegeben auch eine weiter Meldekette ausgelöst.
+## Acronyms
 
-### Server
-Das System soll nicht von einer Stelle abhängig sein, daher sieht unser System eine möglichst dezentrale Lösung vor. Jedoch ist eine Infectionskette auch nichts womit man leichtsinnig umgehen sollte daher streben wir an das offizielle Stellen wie das Robert-Koch-Institut oder das Gesundheitsministerium die Meldeserver betreiben. Durch das Datensparsame konzept ist ein Caching der Daten gewährleistet und die Serverlast sehr gering was den Betrieb eines solchen Systems sehr einfach macht.
+  BLE = Bluetooth Low Energy
+  PID = Pseudonymous Identifier
+  N = # of days of incubation period (+ some margin)
+  DB = Database
+
+## Protocol Description
+
+- Every participant generates a new random PID per timeslot (e.g. every 30 minutes).
+- Each phone is running a BLE (or similar) beacon, broadcasting the current hashed PID (SHA256 truncated by 6 bytes). If two devices come close to each other, they record each others hashed PIDs and save these together with a timestamp, calculated distance (based on signal strength) and meeting duration locally on their device.
+- In case of a positive diagnosis for a participant, they submit the history of their PIDs from the last N days to a public DB. The PIDs of their contacts do not leave their device.
+- Every participant regularly downloads the new infected PIDs from the DB and does a local hash (SHA256) and calculates the intersection with their recorded history and marks them in its own database as infected.
+- The users device calculates the risk of the user being infectious in relation to time based on the duration and distance of all PIDs marked as infected.
+- Recommend actions to the user based on the result of the risk calculation.
+- For the times the user was likely to be infectious they publishes the respective PIDs. And hopefully follows the recommended actions.
+- In case of a positive test outcome the user publishes their PID history and self quarantines. In case of a negative outcome, they continue running the above protocol.
+
+## BLE
+
+- connectionless approaches work with BLE 4, whereas connections require BLE 5 (higher compatibility: Nougat and older don't support 5.0)
+- BLE can exchange 26 bytes without establishing a connection
+- BLE ranging seems to be accurate up to 4 meters 
+- On Android, Bluetooth MAC rotation on the OS level does not provide further de-correlation, because the MAC address is changed at the same time as the message sent
