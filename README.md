@@ -4,6 +4,11 @@ STRICT [simply trac infections] is a protocol and concept how to anonymously tra
 Die Idee zu STRICT entstannt beim #WirVsVirus Hackathon und soll bietet eine Lösung zum anonymen Tracking von Infectionen.
 Der Fokus lag dabei auf Datensparsamkeit und einfache Implementierung, damit wollen wir eine möglichst große Verbreitung erreichen. STRICT lässt sich in Smartdevice mit Bluetooth integrieren, in Betriebssysteme oder in Apps. Durch die Standartisierung des Protokols arbeiten all diese Systeme zu sammen und wir erreichen eine möglichst große Verbreitung um ein Fläschendeckendes tracking von Infectionskrankheiten zu gewährleisten.
 
+
+## DISCLAIMER
+
+This protocol has not undergone thorough threatmodelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Feedback is welcome.
+
 ## Problem Statement
 
 We want to do privacy preserving contact tracing and notify users if they have come in contact with potentially infected people. This should happen in a way that is as privacy preserving as possible. We want to have the following properties:
