@@ -62,7 +62,7 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 - BLE4 allows subsequent connections via GATT servers since Android API version 21 (85% of devices according to android studio)
 - BLE can exchange 26 bytes without establishing a connection
 - BLE ranging seems to be accurate up to 4 meters 
-- On Android, Bluetooth MAC rotation on the OS level does not provide further de-correlation, because the MAC address is changed at the same time as the message sent
+- On Android, Bluetooth MAC rotation on the OS level does not provide further de-correlation, because the MAC address is changed at the same time as the message sent changes.
 
 ## Other layers
 
@@ -87,6 +87,6 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
   * Solution to The Question before would be made ineffective.
 - Further analysis of privacy leakage from plaintext DB
 - BLE has a range of up to 10 Meters, can we get useful distance information and log it for each PID of a contact?
-  * Yes, if the transmit power and antenna impedance are known.
+  * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 400m most times up to 50m [citation needed] but we got information that the values recieved by bluetooth ranging vary a lot based on indoors/outdoors and the amount of water(aka human body) between sender and receiver. further tests required.
 - How long should the PID be?
 - What type/size of regions should be used?
