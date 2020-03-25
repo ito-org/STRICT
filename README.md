@@ -7,7 +7,7 @@ Der Fokus lag dabei auf Datensparsamkeit und einfache Implementierung, damit wol
 
 ## DISCLAIMER
 
-This protocol has not undergone thorough threatmodelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Feedback is welcome.
+This protocol has not undergone thorough threatmodelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Feedback is welcome. We developed a very similar protocol as https://github.com/degregat/ppdt while the WirVsVirus Heckathon. After the heckathon we copied and altered their protocol draft to match our design.
 
 ## Problem Statement
 
