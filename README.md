@@ -39,7 +39,7 @@ We want to do privacy preserving contact tracing and notify users if they have c
 
 - To exchange bandwidth for post-computation, a ratchet with pre- and post-generation capabilities could be used.
 - During contact, if the BLE constraints permit a connection, a key exchange can be performed. Messages encrypted with the resulting key can be appended to the published IDs.
-- Das Speichern des ICD-10 Codes bei den Hochgeladenen PIDs um eine Infektionsspezifische Risikoberechnung und Handlungsanweisung zu liefern.
+- Saving ICD-10 Codes with uploaded PIDs to calculate the risk of infection separately for every one of them and give specific advice.
 
 ## Risk assessment
 
@@ -82,10 +82,10 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 - Which potential malicious user behavior did we miss?
 - Can we achieve robustness against colluding clients? (e.g. regarding location tracing)
 - Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions futher this way?
-- Only accept as many PIDs as someone could have generated while being infectious, probably only possible when an authorization by the health system or similar party  is implemented.
+  * Only accept as many PIDs as someone could have generated while being infectious, probably only possible when an authorization by the health system or similar party  is implemented.
 - Do we gain anything from anonymous submission of PIDs? (All at once, subsets, individual PIDs per circuit or on a mixnet)
-- Solution to The Question before would be made ineffective.
+  * Solution to The Question before would be made ineffective.
 - Further analysis of privacy leakage from plaintext DB
 - BLE has a range of up to 10 Meters, can we get useful distance information and log it for each PID of a contact?
-- Yes, if the Sendeleistung and Empfangsdämpfung are known.
+  * Yes, if the transmit power and antenna impedance are known.
 - How long should the PID be?
