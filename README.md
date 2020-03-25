@@ -89,3 +89,4 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 - BLE has a range of up to 10 Meters, can we get useful distance information and log it for each PID of a contact?
   * Yes, if the transmit power and antenna impedance are known.
 - How long should the PID be?
+- What type/size of regions should be used?
