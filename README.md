@@ -1,13 +1,14 @@
 # STRICT
-STRICT [simply trac infections] is a protocol and concept how to anonymously track infections without tracking people.
 
-Die Idee zu STRICT entstannt beim #WirVsVirus Hackathon und soll bietet eine Lösung zum anonymen Tracking von Infectionen.
-Der Fokus lag dabei auf Datensparsamkeit und einfache Implementierung, damit wollen wir eine möglichst große Verbreitung erreichen. STRICT lässt sich in Smartdevice mit Bluetooth integrieren, in Betriebssysteme oder in Apps. Durch die Standartisierung des Protokols arbeiten all diese Systeme zu sammen und wir erreichen eine möglichst große Verbreitung um ein Fläschendeckendes tracking von Infectionskrankheiten zu gewährleisten.
+STRICT [simply trac infections] is a protocol and concept of how to anonymously track infections without tracking people.
 
+The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a solution for combatting the spread of infective diseases. Our focus has lied on minimizing and a simple implementation to achieve maximum acceptance.
+
+STRICT can be integrated into smart devices with Bluetooth capability, either directly into their operating system or into applications. Through the standardization of this protocol all participants can work together in a cross-border network enabling infection tracking for many geographical locations at once.
 
 ## DISCLAIMER
 
-This protocol has not undergone thorough threatmodelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Feedback is welcome. We developed a very similar protocol as https://github.com/degregat/ppdt while the WirVsVirus Heckathon. After the heckathon we copied and altered their protocol draft to match our design.
+This protocol has not undergone thorough threat modelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Any type of constructive feedback is welcome. We developed a very similar protocol at https://github.com/degregat/ppdt during the #WirVsVirus Hackathon. After the hackathon we copied and altered that protocol draft to match our design.
 
 ## Problem Statement
 
@@ -18,10 +19,12 @@ We want to do privacy preserving contact tracing and notify users if they have c
 
 ## Acronyms
 
-  BLE = Bluetooth Low Energy
-  PID = Pseudonymous Identifier
-  N = # of days of incubation period (+ some margin)
-  DB = Database
+| Short | Long |
+| ------------- | ------------- |
+| BLE  | Bluetooth Low Energy  |
+| PID  | Pseudonymous Identifier  |
+| N  | # of days of incubation period (+ some margin)  |
+| DB  | Database  |
 
 ## Protocol Description
 
@@ -35,17 +38,17 @@ We want to do privacy preserving contact tracing and notify users if they have c
 - For the times the user was likely to be infectious they publishes the respective PIDs. And hopefully follows the recommended actions.
 - In case of a positive test outcome the user publishes their PID history and self quarantines. In case of a negative outcome, they continue running the above protocol.
 
-## Possible extensions
+## Possible Extensions
 
 - To exchange bandwidth for post-computation, a ratchet with pre- and post-generation capabilities could be used.
 - During contact, if the BLE constraints permit a connection, a key exchange can be performed. Messages encrypted with the resulting key can be appended to the published IDs.
 - Saving ICD-10 Codes with uploaded PIDs to calculate the risk of infection separately for every one of them and give specific advice.
 
-## Risk assessment
+## Risk Assessment
 
 - Users log distance and duration for each PID they see, to calculate risk on device after notification.
 
-## Threatmodel
+## Threat Model
 
 - Clients are assumed to be individually malicious, but not colluding at scale.
 - The DB is assumed to be semi-honest.
@@ -64,7 +67,7 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 - BLE ranging seems to be accurate up to 4 meters 
 - On Android, Bluetooth MAC rotation on the OS level does not provide further de-correlation, because the MAC address is changed at the same time as the message sent changes.
 
-## Other layers
+## Other Layers
 
 - Anonymous submission and anonymous download can further increase user privacy
 - Health authorities could give out anonymous credentials for submission with test results if it seems feasible and necessary
