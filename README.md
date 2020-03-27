@@ -2,7 +2,7 @@
 
 STRICT [simply trac infections] is a protocol and concept of how to anonymously track infections without tracking people.
 
-The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a solution for combatting the spread of infective diseases. Our focus has lied on minimizing and a simple implementation to achieve maximum acceptance.
+The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a solution for combatting the spread of infective diseases. Our focus has lied on data minimization and a simple, easily auditable implementation to achieve maximum acceptance.
 
 STRICT can be integrated into smart devices with Bluetooth capability, either directly into their operating system or into applications. Through the standardization of this protocol all participants can work together in a cross-border network enabling infection tracking for many geographical locations at once.
 
@@ -81,15 +81,15 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 
 ## Open Questions
 
-- Does a (weighted) intersection method exist, which hides the elements of the intersection, against a malicious attacker?
+- Does a (weighted) intersection method exist which hides the elements of the intersection from a malicious attacker?
 - Which potential malicious user behavior did we miss?
-- Can we achieve robustness against colluding clients? (e.g. regarding location tracing)
-- Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions futher this way?
+- Can we achieve robustness against colluding clients? (e.g. linkage attacks that use location data obtained by stalking Bluetooth emitters)
+- Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions further this way?
   * Only accept as many PIDs as someone could have generated while being infectious, probably only possible when an authorization by the health system or similar party  is implemented.
-- Do we gain anything from anonymous submission of PIDs? (All at once, subsets, individual PIDs per circuit or on a mixnet)
-  * Solution to The Question before would be made ineffective.
+- Do we gain anything from anonymous submission of PIDs? (all at once, subsets, individual PIDs per circuit or on a mixnet)
+  * Solution to the question before would be made ineffective.
 - Further analysis of privacy leakage from plaintext DB
 - BLE has a range of up to 10 Meters, can we get useful distance information and log it for each PID of a contact?
-  * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 400m most times up to 50m [citation needed] but we got information that the values recieved by bluetooth ranging vary a lot based on indoors/outdoors and the amount of water(aka human body) between sender and receiver. further tests required.
+  * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 400m and most of the times up to 50m [citation needed]. However we have information that the values received by bluetooth ranging vary a lot based on indoors/outdoors and the amount of water(aka human body) between sender and receiver. further tests required.
 - How long should the PID be?
-- What type/size of regions should be used?
+- What type and size of regions should be used? Are GPS coordinates with single-digit precision sufficient for deanonymizing users?
