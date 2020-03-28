@@ -2,13 +2,13 @@
 
 STRICT [simply trac infections] is a protocol and concept of how to anonymously track infections without tracking people.
 
-The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus has lied on data minimization and an easily auditable implementation to achieve maximum acceptance.
+The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus lied on data minimization and an easy-to-audit implementation to achieve maximum acceptance.
 
 STRICT can be integrated into smart devices with Bluetooth capability, either directly into their operating system or into applications. Through the standardization of this protocol all participants can work together in a cross-border network enabling infection tracking for many geographical locations at once.
 
 ## DISCLAIMER
 
-This protocol has not undergone thorough threat modelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Any type of constructive feedback is welcome. We developed a very similar protocol at https://github.com/degregat/ppdt during the #WirVsVirus Hackathon. After the hackathon we copied and altered that protocol draft to match our design.
+This protocol has not undergone thorough threat modelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Any type of constructive feedback is welcome. We are developing a very similar protocol at https://github.com/degregat/ppdt. After the hackathon we copied and altered that protocol draft to match our  current design.
 
 ## Problem Statement
 
@@ -83,13 +83,13 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 
 - Does a (weighted) intersection method exist which hides the elements of the intersection from a malicious attacker?
 - Which potential malicious user behavior did we miss?
-- Can we achieve robustness against colluding clients? (e.g. linkage attacks that use location data obtained by stalking Bluetooth emitters)
+- Can we achieve robustness against colluding clients, for example neighbors or coworkers? Linkage attacks that use location data obtained by stalking Bluetooth emitters are possible.
 - Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions further this way?
-  * Only accept as many PIDs as someone could have generated while being infectious, probably only possible when an authorization by the health system or similar party  is implemented.
+  * Only accept as many PIDs as someone could have generated while being infectious. This is probably only possible if an authorization by the health system or a similar party is implemented.
 - Do we gain anything from anonymous submission of PIDs? (all at once, subsets, individual PIDs per circuit or on a mixnet)
   * Solution to the question before would be made ineffective.
 - Further analysis of privacy leakage from plaintext DB
-- BLE has a range of up to 10 Meters, can we get useful distance information and log it for each PID of a contact?
-  * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 400m and most of the times up to 50m [citation needed]. However we have information that the values received by bluetooth ranging vary a lot based on indoors/outdoors and the amount of water(aka human body) between sender and receiver. further tests required.
+- BLE has a range of up to 10 meters. Can we get useful distance information and log it for each PID of a contact?
+  * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 10m indoors, or more if there are no obstructions. Outdoors signals can travel up to 50m and in rare cases even farther [citation needed]. However we have information that the values received via Bluetooth ranging vary a lot based on indoors/outdoors and the amount of water between sender and receiver, e.g. in the human body. Further tests are necessary.
 - How long should the PID be?
 - What type and size of regions should be used? For example, would GPS coordinates with 0 or 1 digit precision be sufficient for obscuring users' location?
