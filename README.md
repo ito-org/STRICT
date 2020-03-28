@@ -1,27 +1,30 @@
 # STRICT
-STRICT [simply trac infections] is a protocol and concept how to anonymously track infections without tracking people.
 
-Die Idee zu STRICT entstannt beim #WirVsVirus Hackathon und soll bietet eine Lösung zum anonymen Tracking von Infectionen.
-Der Fokus lag dabei auf Datensparsamkeit und einfache Implementierung, damit wollen wir eine möglichst große Verbreitung erreichen. STRICT lässt sich in Smartdevice mit Bluetooth integrieren, in Betriebssysteme oder in Apps. Durch die Standartisierung des Protokols arbeiten all diese Systeme zu sammen und wir erreichen eine möglichst große Verbreitung um ein Fläschendeckendes tracking von Infectionskrankheiten zu gewährleisten.
+STRICT [simply trac infections] is a protocol and concept of how to anonymously track infections without tracking people.
 
+The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus lied on data minimization and an easy-to-audit implementation to achieve maximum acceptance.
+
+STRICT can be integrated into smart devices with Bluetooth capability, either directly into their operating system or into applications. Through the standardization of this protocol all participants can work together in a cross-border network enabling infection tracking for many geographical locations at once.
 
 ## DISCLAIMER
 
-This protocol has not undergone thorough threatmodelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Feedback is welcome. We developed a very similar protocol as https://github.com/degregat/ppdt while the WirVsVirus Heckathon. After the heckathon we copied and altered their protocol draft to match our design.
+This protocol has not undergone thorough threat modelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Any type of constructive feedback is welcome. We are developing a very similar protocol at https://github.com/degregat/ppdt. After the hackathon we copied and altered that protocol draft to match our current design.
 
 ## Problem Statement
 
 We want to do privacy preserving contact tracing and notify users if they have come in contact with potentially infected people. This should happen in a way that is as privacy preserving as possible. We want to have the following properties:
 
 - The users should be alerted if they got in touch with infected parties, ideally only that.
-- The server should not learn anything besides who is infected, ideally not even that.u
+- The server should not learn anything besides who is infected, ideally not even that.
 
 ## Acronyms
 
-  BLE = Bluetooth Low Energy
-  PID = Pseudonymous Identifier
-  N = # of days of incubation period (+ some margin)
-  DB = Database
+| Short | Long |
+| ------------- | ------------- |
+| BLE  | Bluetooth Low Energy  |
+| PID  | Pseudonymous Identifier  |
+| N  | # of days of incubation period (+ some margin)  |
+| DB  | Database  |
 
 ## Protocol Description
 
@@ -35,17 +38,17 @@ We want to do privacy preserving contact tracing and notify users if they have c
 - For the times the user was likely to be infectious they publishes the respective PIDs. And hopefully follows the recommended actions.
 - In case of a positive test outcome the user publishes their PID history and self quarantines. In case of a negative outcome, they continue running the above protocol.
 
-## Possible extensions
+## Possible Extensions
 
 - To exchange bandwidth for post-computation, a ratchet with pre- and post-generation capabilities could be used.
 - During contact, if the BLE constraints permit a connection, a key exchange can be performed. Messages encrypted with the resulting key can be appended to the published IDs.
 - Saving ICD-10 Codes with uploaded PIDs to calculate the risk of infection separately for every one of them and give specific advice.
 
-## Risk assessment
+## Risk Assessment
 
 - Users log distance and duration for each PID they see, to calculate risk on device after notification.
 
-## Threatmodel
+## Threat Model
 
 - Clients are assumed to be individually malicious, but not colluding at scale.
 - The DB is assumed to be semi-honest.
@@ -64,7 +67,7 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 - BLE ranging seems to be accurate up to 4 meters 
 - On Android, Bluetooth MAC rotation on the OS level does not provide further de-correlation, because the MAC address is changed at the same time as the message sent changes.
 
-## Other layers
+## Other Layers
 
 - Anonymous submission and anonymous download can further increase user privacy
 - Health authorities could give out anonymous credentials for submission with test results if it seems feasible and necessary
@@ -78,15 +81,15 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 
 ## Open Questions
 
-- Does a (weighted) intersection method exist, which hides the elements of the intersection, against a malicious attacker?
+- Does a (weighted) intersection method exist which hides the elements of the intersection from a malicious attacker?
 - Which potential malicious user behavior did we miss?
-- Can we achieve robustness against colluding clients? (e.g. regarding location tracing)
-- Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions futher this way?
-  * Only accept as many PIDs as someone could have generated while being infectious, probably only possible when an authorization by the health system or similar party  is implemented.
-- Do we gain anything from anonymous submission of PIDs? (All at once, subsets, individual PIDs per circuit or on a mixnet)
-  * Solution to The Question before would be made ineffective.
+- Can we achieve robustness against colluding clients, for example neighbors or coworkers? Linkage attacks that use location data obtained by stalking Bluetooth emitters are possible.
+- Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions further this way?
+  * Only accept as many PIDs as someone could have generated while being infectious. This is probably only possible if an authorization by the health system or a similar party is implemented.
+- Do we gain anything from anonymous submission of PIDs? (all at once, subsets, individual PIDs per circuit or on a mixnet)
+  * Solution to the question before would be made ineffective.
 - Further analysis of privacy leakage from plaintext DB
-- BLE has a range of up to 10 Meters, can we get useful distance information and log it for each PID of a contact?
-  * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 400m most times up to 50m [citation needed] but we got information that the values recieved by bluetooth ranging vary a lot based on indoors/outdoors and the amount of water(aka human body) between sender and receiver. further tests required.
+- BLE has a range of up to 10 meters. Can we get useful distance information and log it for each PID of a contact?
+  * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 10m indoors, or more if there are no obstructions. Outdoors signals can travel up to 50m and in rare cases even farther [citation needed]. However we have information that the values received via Bluetooth ranging vary a lot based on indoors/outdoors and the amount of water between sender and receiver, e.g. in the human body. Further tests are necessary.
 - How long should the PID be?
-- What type/size of regions should be used?
+- What type and size of regions should be used? For example, would GPS coordinates with 0 or 1 digit precision be sufficient for obscuring users' location?
