@@ -92,4 +92,4 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 - BLE has a range of up to 10 Meters, can we get useful distance information and log it for each PID of a contact?
   * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 400m and most of the times up to 50m [citation needed]. However we have information that the values received by bluetooth ranging vary a lot based on indoors/outdoors and the amount of water(aka human body) between sender and receiver. further tests required.
 - How long should the PID be?
-- What type and size of regions should be used? Are GPS coordinates with single-digit precision sufficient for deanonymizing users?
+- What type and size of regions should be used? For example, would GPS coordinates with 0 or 1 digit precision be sufficient for obscuring users' location?
