@@ -8,7 +8,7 @@ STRICT can be integrated into smart devices with Bluetooth capability, either di
 
 ## DISCLAIMER
 
-This protocol has not undergone thorough threat modelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Any type of constructive feedback is welcome. We are developing a very similar protocol at https://github.com/degregat/ppdt. After the hackathon we copied and altered that protocol draft to match our  current design.
+This protocol has not undergone thorough threat modelling and review yet, but we are working on it. It is an open work in progress, since time is of the essence. Any type of constructive feedback is welcome. We are developing a very similar protocol at https://github.com/degregat/ppdt. After the hackathon we copied and altered that protocol draft to match our current design.
 
 ## Problem Statement
 
