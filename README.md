@@ -2,7 +2,7 @@
 
 STRICT [**s**imply **tr**ace **i**nfe**ct**ions] is a protocol and concept of how to anonymously track infections without tracking people.
 
-The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus lied on data minimization and an easy-to-audit implementation to achieve maximum acceptance.
+The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus is on data minimization and an easy-to-audit implementation to achieve maximum acceptance.
 
 The current version of this protocol only attempts to solve this problem for the current wave of COVID19 infections. We would like to incorporate the possibility of transferring more information about the type of disease or risk calculation data securly between peers in future versions.
 
@@ -37,7 +37,7 @@ We want to do privacy preserving contact tracing and notify users if they have c
 - Every participant regularly downloads the new infected PIDs from the DB and does a local hash (SHA256) and calculates the intersection with their recorded history and marks them in its own database as infected.
 - The users device calculates the risk of the user being infectious in relation to time based on the duration and distance of all PIDs marked as infected.
 - Recommend actions to the user based on the result of the risk calculation.
-- For the times the user was likely to be infectious they publishes the respective PIDs. And hopefully follows the recommended actions.
+- For the times the user was likely to be infectious they publis the respective PIDs, and hopefully follow the recommended actions.
 - In case of a positive test outcome the user publishes their PID history and self quarantines. In case of a negative outcome, they continue running the above protocol.
 
 ## Possible Extensions
@@ -54,7 +54,7 @@ We want to do privacy preserving contact tracing and notify users if they have c
 
 - Clients are assumed to be individually malicious, but not colluding at scale.
 - The DB is assumed to be semi-honest.
-- We provide only application layer de-correlation. The OS is assumed to be trustworthy, e.g. not recording the Bluetooth MACs and we do not deal with transport for submission and download.
+- We provide only application layer de-correlation. The OS is assumed to be trustworthy, e.g. not recording the Bluetooth MACs; we do not deal with transport for submission and download.
 
 ## Malicious Clients
 
