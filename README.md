@@ -4,7 +4,7 @@ STRICT [simply trac infections] is a protocol and concept of how to anonymously 
 
 The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus lied on data minimization and an easy-to-audit implementation to achieve maximum acceptance.
 
-The current version of this protocol only solves this problem for the current wave of COVID19 infections. We would like to incorporate the possibility of transferring more information about the type of disease or risk calculation data securly between peers.
+The current version of this protocol only solves this problem for the current wave of COVID19 infections. We would like to incorporate the possibility of transferring more information about the type of disease or risk calculation data securly between peers in future versions.
 
 STRICT can be integrated into smart devices with Bluetooth capability, either directly into their operating system or into applications. Through the standardization of this protocol all participants can work together in a cross-border network enabling infection tracking for many geographical locations at once.
 
