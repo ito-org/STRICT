@@ -2,7 +2,7 @@
 
 STRICT [**s**imply **tr**ace **i**nfe**ct**ions] is a protocol and concept of how to anonymously track infections without tracking people.
 
-The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus is on data minimization and an easy-to-audit implementation to achieve maximum acceptance.
+The idea for STRICT emerged as part of a grassroots movement during the German government's #WirVsVirus hackathon in March 2020. Its goal is to offer a simple solution for combatting the spread of infective diseases. Our focus is on data minimization, transparency and an easy-to-audit implementation to achieve maximum acceptance.
 
 The current version of this protocol only attempts to solve this problem for the current wave of COVID19 infections. We would like to incorporate the possibility of transferring more information about the type of disease or risk calculation data securly between peers in future versions.
 
