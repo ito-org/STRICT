@@ -37,7 +37,7 @@ We want to do privacy preserving contact tracing and notify users if they have c
 - Every participant regularly downloads the new infected PIDs from the DB and does a local hash (SHA256) and calculates the intersection with their recorded history and marks them in its own database as infected.
 - The users device calculates the risk of the user being infectious in relation to time based on the duration and distance of all PIDs marked as infected.
 - Recommend actions to the user based on the result of the risk calculation.
-- For the times the user was likely to be infectious they publis the respective PIDs, and hopefully follow the recommended actions.
+- For the times the user was likely to be infectious they publish the respective PIDs, and hopefully follow the recommended actions.
 - In case of a positive test outcome the user publishes their PID history and self quarantines. In case of a negative outcome, they continue running the above protocol.
 
 ## Possible Extensions
