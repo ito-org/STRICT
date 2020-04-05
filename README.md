@@ -24,31 +24,31 @@ We want to do privacy preserving contact tracing and notify users if they have c
 | Short | Long |
 | ------------- | ------------- |
 | BLE  | Bluetooth Low Energy  |
-| PID  | Pseudonymous Identifier  |
+| TCN  | Temporary Contact Number  |
 | N  | # of days of incubation period (+ some margin)  |
 | DB  | Database  |
 
 ## Protocol Description
 
-- Every participant generates a new random PID per timeslot (e.g. every 30 minutes), these PIDs will be saved with a timestamp and a region tag.
-- Each phone is running a BLE (or similar) beacon, broadcasting the current hashed PID (SHA256 truncated by 6 bytes). If two devices come close to each other, they record each others hashed PIDs and save these together with a timestamp, calculated distance (based on signal strength) and meeting duration locally on their device.
-- In case of a positive diagnosis for a participant, they submit the randomized history of their PIDs from the last N days to a public DB. The PIDs of their contacts do not leave their device.
-- On the Server, the PIDs will be saved with a timestamp for the upload date and a region tag.
-- Every participant regularly downloads the new infected PIDs from the DB and does a local hash (SHA256) and calculates the intersection with their recorded history and marks them in its own database as infected.
-- The users device calculates the risk of the user being infectious in relation to time based on the duration and distance of all PIDs marked as infected.
+- Every participant generates a new random TCN per timeslot (e.g. every 30 minutes), these TCN will be saved with a timestamp and a region tag.
+- Each phone is running a BLE (or similar) beacon, broadcasting the current hashed TCN (SHA256 truncated by 6 bytes). If two devices come close to each other, they record each others hashed TCNs and save these together with a timestamp, calculated distance (based on signal strength) and meeting duration locally on their device.
+- In case of a positive diagnosis for a participant, they submit the randomized history of their TCNs from the last N days to a public DB. The TCNs of their contacts do not leave their device.
+- On the Server, the TCNs will be saved with a timestamp for the upload date and a region tag.
+- Every participant regularly downloads the new infected TCNs from the DB and does a local hash (SHA256) and calculates the intersection with their recorded history and marks them in its own database as infected.
+- The users device calculates the risk of the user being infectious in relation to time based on the duration and distance of all TCN marked as infected.
 - Recommend actions to the user based on the result of the risk calculation.
-- For the times the user was likely to be infectious they publish the respective PIDs, and hopefully follow the recommended actions.
-- In case of a positive test outcome the user publishes their PID history and self quarantines. In case of a negative outcome, they continue running the above protocol.
+- For the times the user was likely to be infectious they publish the respective TCN, and hopefully follow the recommended actions.
+- In case of a positive test outcome the user publishes their TCN history and self quarantines. In case of a negative outcome, they continue running the above protocol.
 
 ## Possible Extensions
 
 - To exchange bandwidth for post-computation, a ratchet with pre- and post-generation capabilities could be used.
 - During contact, if the BLE constraints permit a connection, a key exchange can be performed. Messages encrypted with the resulting key can be appended to the published IDs.
-- Saving ICD-10 Codes with uploaded PIDs to calculate the risk of infection separately for every one of them and give specific advice.
+- Saving ICD-10 Codes with uploaded all TCN to calculate the risk of infection separately for every one of them and give specific advice.
 
 ## Risk Assessment
 
-- Users log distance and duration for each PID they see, to calculate risk on device after notification.
+- Users log distance and duration for each TCN they see, to calculate risk on device after notification.
 
 ## Threat Model
 
@@ -58,9 +58,9 @@ We want to do privacy preserving contact tracing and notify users if they have c
 
 ## Malicious Clients
 
-Possible ways for a malicious client to misbehave would be to forge/omit submissions to produce false positives and false negatives. If the PIDs are sufficiently long, the collision rate should be low enough to produce few false positives in case of forged submission. Since this is an opt-in protocol, false negatives are identical to non-participation.
+Possible ways for a malicious client to misbehave would be to forge/omit submissions to produce false positives and false negatives. If the TCN are sufficiently long, the collision rate should be low enough to produce few false positives in case of forged submission. Since this is an opt-in protocol, false negatives are identical to non-participation.
 
-A client could correlate PIDs to other users on sidechannels, to later look up which people are positive. This might be mitigated with something like Private Join and Compute, but with malicious security.
+A client could correlate TCNs to other users on sidechannels, to later look up which people are positive. This might be mitigated with something like Private Join and Compute, but with malicious security.
 
 ## BLE
 
@@ -77,9 +77,9 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 
 ## Privacy and Incentives
 
-- Only the history of PIDs of participants who were tested positive is published. Since this history is only correlated to an region, and correlation to contact history happens only on users devices, only regions, but not the contact history is leaked to the server or non-contacts. This, together with voluntary participation, can increase buy-in from the population, leading to faster response time for testing larger groups. Since the health authorities will administer the tests, local statistics will also become more accurate.
+- Only the history of TCNs of participants who were tested positive is published. Since this history is only correlated to an region, and correlation to contact history happens only on users devices, only regions, but not the contact history is leaked to the server or non-contacts. This, together with voluntary participation, can increase buy-in from the population, leading to faster response time for testing larger groups. Since the health authorities will administer the tests, local statistics will also become more accurate.
 - Since people get incentivized to get tested before they become symptomatic, spread can be reduced.
-- Since the PIDs get rotated, local tracking/correlation by other potentially malicious participants gets impeded.
+- Since the TCNs get rotated, local tracking/correlation by other potentially malicious participants gets impeded.
 - This kind of soft, opt-in intervention is probably most useful for the long tail to monitor resurgences. To improve monitoring, the app could walk users through self diagnosis.
 
 ## Open Questions
@@ -88,12 +88,12 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 - Which potential malicious user behavior did we miss?
 - Can we achieve robustness against colluding clients, for example neighbors or coworkers? Linkage attacks that use location data obtained by stalking Bluetooth emitters are possible.
 - Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions further this way?
-  * Only accept as many PIDs as someone could have generated while being infectious. This is probably only possible if an authorization by the health system or a similar party is implemented.
-- Do we gain anything from anonymous submission of PIDs? (all at once, subsets, individual PIDs per circuit or on a mixnet)
+  * Only accept as many TCNs as someone could have generated while being infectious. This is probably only possible if an authorization by the health system or a similar party is implemented.
+- Do we gain anything from anonymous submission of TCNs? (all at once, subsets, individual TCNs per circuit or on a mixnet)
   * Solution to the question before would be made ineffective.
 - Further analysis of privacy leakage from plaintext DB
-- BLE has a range of up to 10 meters. Can we get useful distance information and log it for each PID of a contact?
+- BLE has a range of up to 10 meters. Can we get useful distance information and log it for each TCN of a contact?
   * Yes, if the transmit power and antenna impedance are known. Our sources say its possible to send messages up to 10m indoors, or more if there are no obstructions. Outdoors signals can travel up to 50m and in rare cases even farther [citation needed]. However we have information that the values received via Bluetooth ranging vary a lot based on indoors/outdoors and the amount of water between sender and receiver, e.g. in the human body. Further tests are necessary.
-- How long should the PID be?
+- How long should the TCN be?
 - What type and size of regions should be used? For example, would GPS coordinates with 0 or 1 digit precision be sufficient for obscuring users' location?
 - [How do we prevent / limit the impact of replay attacs](https://github.com/ito-org/STRICT/issues/3), collecting ids and rebroadcasting them at a different time / location to scare / troll people. Possible aproaches: add (fuzzy?) timestamps to published tokens to prevent rebroadcast at different times. Adding location would prevent rebroadcast at different places, but is contrary to our privacy goals. Switching to key-exchange would neatly prevent this, but is a much more complicated protocol.
