@@ -31,10 +31,10 @@ We want to do privacy preserving contact tracing and notify users if they have c
 ## Protocol Description
 
 - Every participant generates a new random TCN per timeslot (e.g. every 30 minutes), these TCN will be saved with a timestamp and a region tag.
-- Each phone is running a BLE (or similar) beacon, broadcasting the current hashed TCN (SHA256 truncated by 6 bytes). If two devices come close to each other, they record each others hashed TCNs and save these together with a timestamp, calculated distance (based on signal strength) and meeting duration locally on their device.
-- In case of a positive diagnosis for a participant, they submit the randomized history of their TCNs from the last N days to a public DB. The TCNs of their contacts do not leave their device.
-- On the Server, the TCNs will be saved with a timestamp for the upload date and a region tag.
-- Every participant regularly downloads the new infected TCNs from the DB and does a local hash (SHA256) and calculates the intersection with their recorded history and marks them in its own database as infected.
+- Each phone is running a BLE (or similar) beacon, broadcasting the current hashed TCN (SHA256 truncated by 6 bytes). If two devices come close to each other, they record each others hashed TCN and save these together with a timestamp, calculated distance (based on signal strength) and meeting duration locally on their device.
+- In case of a positive diagnosis for a participant, they submit the randomized history of their TCN from the last N days to a public DB. The TCN of their contacts do not leave their device.
+- On the Server, the TCN will be saved with a timestamp for the upload date and a region tag.
+- Every participant regularly downloads the new infected TCN from the DB and does a local hash (SHA256) and calculates the intersection with their recorded history and marks them in its own database as infected.
 - The users device calculates the risk of the user being infectious in relation to time based on the duration and distance of all TCN marked as infected.
 - Recommend actions to the user based on the result of the risk calculation.
 - For the times the user was likely to be infectious they publish the respective TCN, and hopefully follow the recommended actions.
@@ -77,9 +77,9 @@ A client could correlate TCNs to other users on sidechannels, to later look up w
 
 ## Privacy and Incentives
 
-- Only the history of TCNs of participants who were tested positive is published. Since this history is only correlated to an region, and correlation to contact history happens only on users devices, only regions, but not the contact history is leaked to the server or non-contacts. This, together with voluntary participation, can increase buy-in from the population, leading to faster response time for testing larger groups. Since the health authorities will administer the tests, local statistics will also become more accurate.
+- Only the history of TCN of participants who were tested positive is published. Since this history is only correlated to an region, and correlation to contact history happens only on users devices, only regions, but not the contact history is leaked to the server or non-contacts. This, together with voluntary participation, can increase buy-in from the population, leading to faster response time for testing larger groups. Since the health authorities will administer the tests, local statistics will also become more accurate.
 - Since people get incentivized to get tested before they become symptomatic, spread can be reduced.
-- Since the TCNs get rotated, local tracking/correlation by other potentially malicious participants gets impeded.
+- Since the TCN get rotated, local tracking/correlation by other potentially malicious participants gets impeded.
 - This kind of soft, opt-in intervention is probably most useful for the long tail to monitor resurgences. To improve monitoring, the app could walk users through self diagnosis.
 
 ## Open Questions
@@ -88,8 +88,8 @@ A client could correlate TCNs to other users on sidechannels, to later look up w
 - Which potential malicious user behavior did we miss?
 - Can we achieve robustness against colluding clients, for example neighbors or coworkers? Linkage attacks that use location data obtained by stalking Bluetooth emitters are possible.
 - Do we need rate limiting to prevent spam on the DB? Can we reduce false positives from forged submissions further this way?
-  * Only accept as many TCNs as someone could have generated while being infectious. This is probably only possible if an authorization by the health system or a similar party is implemented.
-- Do we gain anything from anonymous submission of TCNs? (all at once, subsets, individual TCNs per circuit or on a mixnet)
+  * Only accept as many TCN as someone could have generated while being infectious. This is probably only possible if an authorization by the health system or a similar party is implemented.
+- Do we gain anything from anonymous submission of TCN? (all at once, subsets, individual TCN per circuit or on a mixnet)
   * Solution to the question before would be made ineffective.
 - Further analysis of privacy leakage from plaintext DB
 - BLE has a range of up to 10 meters. Can we get useful distance information and log it for each TCN of a contact?
