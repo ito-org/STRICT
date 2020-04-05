@@ -73,6 +73,7 @@ A client could correlate PIDs to other users on sidechannels, to later look up w
 
 - Anonymous submission and anonymous download can further increase user privacy
 - Health authorities could give out anonymous credentials for submission with test results if it seems feasible and necessary
+- Separating the BT-interaction from the server-interaction, would allow vendors like Apple or Google to solve the Bluetooth interaction and data collectin part of the problem, while still allowing different apps/ vendors to compete on tracing app implementations. This would also allow an app that is running in the background all the time anyway to do the bt data collection, while a different app uses that data to do risk and symptom reporting.
 
 ## Privacy and Incentives
 
