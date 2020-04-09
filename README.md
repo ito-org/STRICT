@@ -1,3 +1,8 @@
+# Deprecation Notice
+Upon examination and after discussion we have found that the TCN Protocol is identical (in function) to this protocol. In particular, that the STRICT protocol outlined here is a subset of the TCN Protocol, given that the key material to generate new broadcast ids is rotated every time a new broadcast id is required.
+
+We have therefore deprecated it and continue to work on [the common TCN protocol](https://github.com/TCNCoalition/TCN).
+
 # STRICT
 
 STRICT [**s**imply **tr**ace **i**nfe**ct**ions] is a protocol and concept of how to anonymously track infections without tracking people.
