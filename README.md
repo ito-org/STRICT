@@ -1,5 +1,5 @@
 # Deprecation Notice
-In discussion we have fond that the TCN Protocol is identical (in function) to this protocol, given that they key material to generate new broadcast ids is rotated every time a new broadcast id is required.
+Upon examination and after discussion we have found that the TCN Protocol is identical (in function) to this protocol. In particular, that the STRICT protocol outlined here is a subset of the TCN Protocol, given that the key material to generate new broadcast ids is rotated every time a new broadcast id is required.
 
 We have therefore deprecated it in favor of [the common TCN protocol](https://github.com/TCNCoalition/TCN).
 
